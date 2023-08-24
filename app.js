@@ -25,6 +25,7 @@ app.post('/run-script', (req, res) => {
 
     // client로 부터 받은 option을 args로 만들어서 빌드 스크립트로 전달
     const args = [
+      option.username,
       option.timestamp,
       option.type,
       option.toolchain,
