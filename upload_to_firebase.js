@@ -40,7 +40,7 @@ const data = {
   toolchain: process.argv[9],
   standard: process.argv[10],
   autotalks_sdk: process.argv[11],
-  autotalks_hw: process.argv[12],
+  hw: process.argv[12],
 };
 
 saveData(document_id, data);
