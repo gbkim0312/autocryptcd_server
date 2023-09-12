@@ -1,9 +1,8 @@
-// worker_code.js
-
 const { parentPort } = require('worker_threads');
 const { spawn } = require('child_process');
 
 function cmdBuild(option) {
+    parentPort.postMessage({ type: 'start' });
     console.log('빌드 스크립트 실행 중');
 
     const args = [
@@ -88,7 +87,7 @@ function cmdTestDevice(option) {
         console.error(errorMessage);
         parentPort.postMessage({ type: 'log', data: errorMessage });
     });
-    f
+
     testDeviceProcess.on('close', (code) => {
         if (code === 0) {
             console.log('테스트 스크립트 실행 성공');
