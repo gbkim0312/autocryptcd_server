@@ -7,7 +7,7 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-const jobQueues = {};
+var jobQueues = {};
 
 app.post('/run-script', (req, res) => {
   const option = req.body;
@@ -31,7 +31,7 @@ app.post('/run-script', (req, res) => {
     res.setHeader('Cache-Control', 'no-cache');
     res.setHeader('Connection', 'keep-alive');
 
-    let currentIndex = 0;
+    var currentIndex = 0;
 
     worker.on('message', (message) => {
       if (message.type === 'log') {

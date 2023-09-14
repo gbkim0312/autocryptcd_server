@@ -29,7 +29,6 @@ const saveData = async (docId, data) => {
 };
 
 
-//TODO: Toolchain 정보도 추거
 const data = {
   commit_num: process.argv[4],
   device_name: process.argv[5],
