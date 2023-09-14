@@ -8,7 +8,6 @@ app.use(cors());
 app.use(bodyParser.json());
 
 var jobQueues = {};
-
 app.post('/run-script', (req, res) => {
   const option = req.body;
 
@@ -20,11 +19,17 @@ app.post('/run-script', (req, res) => {
 
   const username = option.username;
 
-  if (!jobQueues[username]) {
-    jobQueues[username] = [];
+  if (option.command === 'request') {
+    if (jobQueues[username]) {
+      return res.status(400).json({ status: 'Deny', data: 'deny' });
+    } else {
+      jobQueues[username] = [];
+      return res.status(200).json({ status: 'ok' });
+    }
   }
 
-  if (option.command === 'done') {
+
+  else if (option.command === 'done') {
 
     const worker = new Worker('./worker_code.js');
     res.setHeader('Content-Type', 'text/event-stream');
@@ -59,12 +64,15 @@ app.post('/run-script', (req, res) => {
     const firstJob = jobQueues[username].shift();
     worker.postMessage(firstJob);
 
-  } else {
+  }
+  else if (option.command === 'build') {
     jobQueues[username].push(option);
     res.status(200).json({ status: 'ok' });
   }
+  else {
+    res.status(400);
+  }
 });
-
 
 app.listen(10101, () => {
   console.log('Server is running on port 10101');
