@@ -13,8 +13,8 @@ function cmdBuild(option) {
         option.toolchain,
         option.standard,
         option.deviceName,
+        option.uid,
     ];
-
     if (option.rel) {
         args.push(option.rel);
     } else {
@@ -71,6 +71,7 @@ function cmdTestDevice(option) {
         option.package_name,
         option.host,
         option.port,
+        option.uid
 
     ];
 

@@ -13,7 +13,7 @@ const db = admin.firestore();
 const document_id = process.argv[2];
 const type = process.argv[3];
 
-const saveData = async (docId, data) => {
+const uploadData = async (docId, data) => {
 
   var docRef;
   try {
@@ -22,7 +22,7 @@ const saveData = async (docId, data) => {
     } else {
       docRef = await db.collection('build-history-toolchain').doc(docId).set(data);
     }
-    console.log(`Document written with ID: ${docRef.id}`);
+    console.log(`Document written with ID: ${document_id}`);
   } catch (error) {
     console.error('Error adding document:', error);
   }
@@ -38,10 +38,11 @@ const data = {
   user: process.argv[8],
   toolchain: process.argv[9],
   standard: process.argv[10],
-  autotalks_sdk: process.argv[11],
+  autotalks_sdk: process.argv[13],
   hw: process.argv[12],
+  uid: process.argv[11],
 };
 
-saveData(document_id, data);
+uploadData(document_id, data);
 
 
